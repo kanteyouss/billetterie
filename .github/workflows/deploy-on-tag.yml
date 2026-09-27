@@ -39,7 +39,7 @@ jobs:
       name: production
     steps:
       - name: Download JAR artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.3
         with:
           name: billetterie-jar
           path: dist
