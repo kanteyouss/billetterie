@@ -2,6 +2,9 @@ package com.billetterie.billetterie.entity;
 
 import jakarta.persistence.*;
 
+/**
+ * Représente la categorie de place
+ */
 @Entity
 @Table(name = "categorie")
 public class Categorie {

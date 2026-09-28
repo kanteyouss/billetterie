@@ -1,7 +1,9 @@
 package com.billetterie.billetterie.entity;
 
 import jakarta.persistence.*;
-
+/**
+ * Représente l'evenement qui se deroule
+ */
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "evenement")

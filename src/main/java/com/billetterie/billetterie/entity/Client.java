@@ -1,7 +1,9 @@
 package com.billetterie.billetterie.entity;
 
 import jakarta.persistence.*;
-
+/**
+ * Représente le client qui fait une reservation por l'evenement
+ */
 @Entity
 @Table(name = "client")
 public class Client {

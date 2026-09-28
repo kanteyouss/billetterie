@@ -3,6 +3,9 @@ package com.billetterie.billetterie.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+/**
+ * Représente  la tabe associative entre evenement et categorie avec le prix
+ */
 @Entity
 @Table(name = "tarif_evenement")
 public class TarifEvenement {

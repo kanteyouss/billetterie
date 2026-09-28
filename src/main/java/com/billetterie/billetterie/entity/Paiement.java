@@ -3,7 +3,9 @@ package com.billetterie.billetterie.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+/**
+ * Représente le paiement d'une reservation
+ */
 @Entity
 @Table(name = "paiement")
 public class Paiement {
