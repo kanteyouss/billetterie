@@ -1,5 +1,6 @@
 package com.billetterie.billetterie.entity;
 
+import com.billetterie.billetterie.reservation.Reservation;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,6 +24,6 @@ public class Paiement {
     private String modePaiement; // ex: 'Carte', 'Espèces', 'Mobile Money'
 
     @ManyToOne
-    @JoinColumn(name = "commande_id", nullable = false)
+    @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 }

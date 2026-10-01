@@ -1,6 +1,5 @@
-package com.billetterie.billetterie.repository;
+package com.billetterie.billetterie.categorie;
 
-import com.billetterie.billetterie.entity.Categorie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

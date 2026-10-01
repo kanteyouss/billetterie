@@ -1,7 +1,17 @@
-package com.billetterie.billetterie.entity;
+package com.billetterie.billetterie.reservation;
+import com.billetterie.billetterie.client.Client;
+import com.billetterie.billetterie.status.Statut;
+import com.billetterie.billetterie.evenement.Evenement;
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 @Entity
 @Table(name = "reservation")
 public class Reservation {

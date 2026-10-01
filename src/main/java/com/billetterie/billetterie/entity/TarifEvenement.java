@@ -1,5 +1,7 @@
 package com.billetterie.billetterie.entity;
 
+import com.billetterie.billetterie.categorie.Categorie;
+import com.billetterie.billetterie.evenement.Evenement;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ public class TarifEvenement {
     @ManyToOne
     @JoinColumn(name = "evenement_id")
     private Evenement evenement;
-    @ManyToOne
-    @JoinColumn(name = "categorie_id")
-    private Categorie categorie;
+//    @ManyToOne
+//    @JoinColumn(name = "categorie_id")
+//    private Categorie categorie;
 }
