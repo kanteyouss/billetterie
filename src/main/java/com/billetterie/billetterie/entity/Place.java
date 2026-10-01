@@ -1,6 +1,9 @@
 package com.billetterie.billetterie.entity;
 
 import jakarta.persistence.*;
+/**
+ * Représente la place dans la salle pour l'evenement
+ */
 @Entity
 @Table(name = "place")
 public class Place {
