@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlaceResponseDto implements ResponseDto {
+public class PlaceResponseDto {
     private Long id;
     private int rang;
     private int numero;

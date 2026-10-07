@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategorieResponseDto implements ResponseDto {
+public class CategorieResponseDto  {
     private Long id;
     private String nom;
     private String description;
