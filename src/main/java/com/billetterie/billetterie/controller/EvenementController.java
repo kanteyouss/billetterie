@@ -26,10 +26,10 @@ public class EvenementController {
      * @return l'événement créé
      */
     @PostMapping
-    public Response<EvenementResponseDto> createEvenement(
+    public EvenementResponseDto createEvenement(
             @RequestBody EvenementRequestDto evenementRequest) {
 
-        return new Response<>(evenementService.createEvenement(evenementRequest));
+        return evenementService.createEvenement(evenementRequest);
     }
     /**
      * Récupère un événement à partir de son identifiant.
@@ -38,8 +38,8 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement récupéré.
      */
     @GetMapping("/{id}")
-    public Response<EvenementResponseDto> getEvenementById(@PathVariable Long id) {
-        return new Response<>(evenementService.getEvenementById(id));
+    public EvenementResponseDto getEvenementById(@PathVariable Long id) {
+        return evenementService.getEvenementById(id);
     }
 
     /**
@@ -48,8 +48,8 @@ public class EvenementController {
      * @return List<EvenementResponseDto> La liste des événements.
      */
     @GetMapping
-    public Response<EvenementResponseDto> getAllEvenements() {
-        return new Response<>(evenementService.getAllEvenements());
+    public List<EvenementResponseDto> getAllEvenements() {
+        return evenementService.getAllEvenements();
     }
 
     /**
@@ -60,8 +60,8 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement modifié.
      */
     @PutMapping("/{id}")
-    public Response<EvenementResponseDto> updateEvenementById(@PathVariable Long id, @RequestBody EvenementRequestDto evenementRequest) {
-        return new Response<>(evenementService.updateEvenementById(id, evenementRequest));
+    public EvenementResponseDto updateEvenementById(@PathVariable Long id, @RequestBody EvenementRequestDto evenementRequest) {
+        return evenementService.updateEvenementById(id, evenementRequest);
     }
 
     /**
@@ -71,7 +71,7 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement supprimé.
      */
     @DeleteMapping("/{id}")
-    public Response<EvenementResponseDto> deleteEvenementById(@PathVariable Long id) {
-        return new Response<>(evenementService.deleteEvenementById(id));
+    public EvenementResponseDto deleteEvenementById(@PathVariable Long id) {
+        return evenementService.deleteEvenementById(id);
     }
 }

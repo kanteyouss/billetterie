@@ -17,24 +17,24 @@ public class CategorieController {
     private final SalleService salleService;
     private final CategorieService categorieService;
     @GetMapping
-    public Response<CategorieResponseDto> getAllCategories() {
-        return new Response<>(categorieService.getAllCategories());
+    public List<CategorieResponseDto> getAllCategories() {
+        return categorieService.getAllCategories();
     }
     @PostMapping()
-    private Response<CategorieResponseDto> createCategorie(@RequestBody CategorieRequestDto categorieRequest) {
-        return new Response<>(categorieService.createCategorie(categorieRequest));
+    private CategorieResponseDto createCategorie(@RequestBody CategorieRequestDto categorieRequest) {
+        return  categorieService.createCategorie(categorieRequest);
     }
     @GetMapping("/{id}")
-    public Response<CategorieResponseDto> getCategorieById(@PathVariable Long id) {
-        return new Response<>(categorieService.getCategorieById(id));
+    public CategorieResponseDto getCategorieById(@PathVariable Long id) {
+        return categorieService.getCategorieById(id);
     }
     @DeleteMapping("/{id}")
-    public Response<CategorieResponseDto> deleteCategorieById(@PathVariable Long id) {
-        return new Response<>(categorieService.deleteCategorieById(id));
+    public CategorieResponseDto deleteCategorieById(@PathVariable Long id) {
+        return categorieService.deleteCategorieById(id);
     }
     @PutMapping("/{id}")
-    public Response<CategorieResponseDto> updateCategorieById(@PathVariable Long id,@RequestBody CategorieRequestDto categorieRequest) {
-        return new Response<>(categorieService.updateCategorieById(id,categorieRequest));
+    public CategorieResponseDto updateCategorieById(@PathVariable Long id,@RequestBody CategorieRequestDto categorieRequest) {
+        return categorieService.updateCategorieById(id,categorieRequest);
     }
 
 }

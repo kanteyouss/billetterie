@@ -20,8 +20,8 @@ public class SalleController {
      * @return List<SalleResponseDto> La liste des salles.
      */
     @GetMapping
-    public Response<SalleResponseDto> getAllSalle() {
-        return new Response<>(salleService.getAllSalle());
+    public List<SalleResponseDto> getAllSalle() {
+        return salleService.getAllSalle();
     }
     /**
      * Crée une nouvelle salle.
@@ -29,8 +29,8 @@ public class SalleController {
      * @return SalleResponseDto Les détails de la salle créée.
      */
     @PostMapping
-    public Response<SalleResponseDto>  createSalle(@RequestBody SalleRequestDto salleRequest) {
-        return new Response<>(salleService.createSalle(salleRequest));
+    public SalleResponseDto  createSalle(@RequestBody SalleRequestDto salleRequest) {
+        return salleService.createSalle(salleRequest);
     }
     /**
      * Récupère une salle à partir de son identifiant.
@@ -38,8 +38,8 @@ public class SalleController {
      * @return SalleResponseDto Les détails de la salle récupérée.
      */
     @GetMapping("/{id}")
-    public Response<SalleResponseDto>  getSalleById(@PathVariable Long id) {
-        return new Response<>(salleService.getSalleById(id));
+    public SalleResponseDto  getSalleById(@PathVariable Long id) {
+        return salleService.getSalleById(id);
     }
     /**
      * Modifie une salle existante.
@@ -48,11 +48,10 @@ public class SalleController {
      * @return SalleResponseDto Les détails de la salle modifiée.
      */
     @PutMapping("/{id}")
-    public Response<SalleResponseDto>  updatesalle(
+    public SalleResponseDto updatesalle(
             @PathVariable Long id,
             @RequestBody SalleRequestDto salleRequest) {
-
-        return new Response<>(salleService.updatesalle(id, salleRequest));
+        return salleService.updatesalle(id, salleRequest);
     }
     /**
      * Supprime une salle à partir de son identifiant.
@@ -60,7 +59,7 @@ public class SalleController {
      * @return SalleResponseDto Les détails de la salle supprimée.
      */
     @DeleteMapping("/{id}")
-    public Response<SalleResponseDto>  deleteSalle(@PathVariable Long id) {
-        return new Response<>(salleService.deleteSalle(id));
+    public SalleResponseDto deleteSalle(@PathVariable Long id) {
+        return salleService.deleteSalle(id);
     }
 }

@@ -22,8 +22,8 @@
          * @return List<PlaceResponseDto> La liste des places.
          */
         @GetMapping
-        public Response<PlaceResponseDto> getAllPlaces() {
-            return new Response<>(placeService.getAllPlaces());
+        public List<PlaceResponseDto> getAllPlaces() {
+            return placeService.getAllPlaces();
         }
 
         /**
@@ -33,8 +33,8 @@
          * @return PlaceResponseDto Les détails de la place récupérée.
          */
         @GetMapping("/{id}")
-        public Response<PlaceResponseDto> getPlaceById(@PathVariable Long id) {
-            return new Response<>(placeService.getPlaceById(id));
+        public PlaceResponseDto getPlaceById(@PathVariable Long id) {
+            return placeService.getPlaceById(id);
         }
 
         /**
@@ -44,8 +44,8 @@
          * @return PlaceResponseDto Les détails de la place créée.
          */
         @PostMapping
-        public Response<PlaceResponseDto> createPlace(@RequestBody PlaceRequestDto placeRequest) {
-            return new Response<>(placeService.create(placeRequest));
+        public PlaceResponseDto createPlace(@RequestBody PlaceRequestDto placeRequest) {
+            return placeService.create(placeRequest);
         }
 
         /**
@@ -56,11 +56,11 @@
          * @return PlaceResponseDto Les détails de la place modifiée.
          */
         @PutMapping("/{id}")
-        public Response<PlaceResponseDto> updatePlace(
+        public PlaceResponseDto updatePlace(
                 @PathVariable Long id,
                 @RequestBody PlaceRequestDto placeRequest) {
 
-            return new Response<>(placeService.updatePlace(id, placeRequest));
+            return placeService.updatePlace(id, placeRequest);
         }
 
         /**
@@ -70,7 +70,7 @@
          * @return PlaceResponseDto Les détails de la place supprimée.
          */
         @DeleteMapping("/{id}")
-        public Response<PlaceResponseDto> deletePlaceByIdd(@PathVariable Long id) {
-            return new Response<>(placeService.deletePlaceByIdd(id));
+        public PlaceResponseDto deletePlaceByIdd(@PathVariable Long id) {
+            return placeService.deletePlaceByIdd(id);
         }
     }

@@ -21,8 +21,8 @@ public class ReservationController {
      * @return List<ReservationResponseDto> La liste des réservations.
      */
     @GetMapping
-    public Response<ReservationResponseDto> getAllReservations() {
-        return new Response<>(reservationService.getAllReservations());
+    public List<ReservationResponseDto> getAllReservations() {
+        return reservationService.getAllReservations();
     }
     /**
      * Récupère une réservation à partir de son identifiant.
@@ -42,8 +42,8 @@ public class ReservationController {
      * @return ReservationResponseDto Les détails de la réservation supprimée.
      */
     @DeleteMapping("/{id}")
-    public Response<ReservationResponseDto> deleteById(@PathVariable Long id) {
-        return new Response<>(reservationService.deleteById(id));
+    public ReservationResponseDto deleteById(@PathVariable Long id) {
+        return reservationService.deleteById(id);
     }
 
     /**
@@ -54,11 +54,11 @@ public class ReservationController {
      * @return ReservationResponseDto Les détails de la réservation modifiée.
      */
     @PutMapping("/{id}")
-    public Response<ReservationResponseDto> updateById(
+    public ReservationResponseDto updateById(
             @PathVariable Long id,
             @RequestBody ReservationRequestDto reservationRequest) {
 
-        return new Response<>(reservationService.updateById(id, reservationRequest));
+        return reservationService.updateById(id, reservationRequest);
     }
     /**
      * Crée une nouvelle réservation.
@@ -67,9 +67,7 @@ public class ReservationController {
      * @return ReservationResponseDto Les détails de la réservation créée.
      */
     @PostMapping
-    public Response<ReservationResponseDto> createById(
-            @RequestBody ReservationRequestDto reservationRequest) {
-
-        return new Response<>(reservationService.createById(reservationRequest));
+    public ReservationResponseDto createById(@RequestBody ReservationRequestDto reservationRequest) {
+        return reservationService.createById(reservationRequest);
     }
 }
