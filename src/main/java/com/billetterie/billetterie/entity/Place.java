@@ -1,8 +1,18 @@
 package com.billetterie.billetterie.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+/**
+ * Représente la place dans la salle pour l'evenement
+ */
 @Entity
 @Table(name = "place")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Setter
+@Getter
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,5 +25,4 @@ public class Place {
     @ManyToOne
     @JoinColumn(name = "categorie_id",nullable = false)
     private Categorie categorie;
-
 }

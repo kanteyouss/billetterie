@@ -1,0 +1,29 @@
+package com.billetterie.billetterie.utils.response;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+@Getter
+@Setter
+@JsonPropertyOrder({"status","nombre","hasError","data"})
+public class Response<T> {
+    private Status status;
+    private boolean hasError;
+    private List<T> data;
+    private Long nombre;
+
+    public  Response(List<T> data) {
+        this.status = new Status("800", "Opération effectuée avec succès");
+        this.hasError = false;
+        this.nombre =(long) data.size();
+        this.data = data;
+    }
+    public Response (T data) {
+        this.data = List.of(data);
+        this.status = new Status("800", "Opération effectuée avec succès");
+        this.hasError = false;
+        this.nombre = 1L;
+    }
+}

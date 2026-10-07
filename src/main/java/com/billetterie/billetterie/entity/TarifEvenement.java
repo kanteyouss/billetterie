@@ -3,6 +3,9 @@ package com.billetterie.billetterie.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+/**
+ * Représente  la tabe associative entre evenement et categorie avec le prix
+ */
 @Entity
 @Table(name = "tarif_evenement")
 public class TarifEvenement {
@@ -13,7 +16,7 @@ public class TarifEvenement {
     @ManyToOne
     @JoinColumn(name = "evenement_id")
     private Evenement evenement;
-    @ManyToOne
-    @JoinColumn(name = "categorie_id")
-    private Categorie categorie;
+//    @ManyToOne
+//    @JoinColumn(name = "categorie_id")
+//    private Categorie categorie;
 }
