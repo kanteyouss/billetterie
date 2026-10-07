@@ -1,7 +1,5 @@
 package com.billetterie.billetterie.entity;
 
-import com.billetterie.billetterie.categorie.Categorie;
-import com.billetterie.billetterie.evenement.Evenement;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
