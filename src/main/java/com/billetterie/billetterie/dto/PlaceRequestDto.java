@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlaceRequestDto {
+public class PlaceRequestDto implements RequestDto{
     private int rang;
     private int numero;
     private Long salleId;
