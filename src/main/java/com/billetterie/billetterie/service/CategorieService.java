@@ -2,60 +2,53 @@ package com.billetterie.billetterie.service;
 
 import com.billetterie.billetterie.dto.CategorieRequestDto;
 import com.billetterie.billetterie.dto.CategorieResponseDto;
+import com.billetterie.billetterie.dto.RequestDto;
+import com.billetterie.billetterie.dto.ResponseDto;
 import com.billetterie.billetterie.entity.Categorie;
 import com.billetterie.billetterie.repository.CategorieRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 @Service
-@RequiredArgsConstructor
-public class CategorieService {
-    private final CategorieRepository categorieRepository;
+public class CategorieService extends AbstractCrudService implements CrudService {
+
+    private JpaRepository jpaRepository;
     private CategorieResponseDto categorieResponse;
     private CategorieRequestDto categorieRequest;
+    private final CategorieRepository categorieRepository;
+    public CategorieService(CategorieRepository categorieRepository) {
+        super(categorieRepository);
+        this.categorieRepository = categorieRepository;
+    }
 
-    public Categorie toEntity(CategorieRequestDto categorieRequest) {
+    public Categorie toEntity(CategorieRequestDto CategorieRequestDto) {
         return Categorie.builder()
                 .nom(categorieRequest.getNom())
                 .description(categorieRequest.getDescription())
                 .build();
     }
-    public CategorieResponseDto toDto(Categorie categorie) {
+    @Override
+    public ResponseDto toDto(Object entity) {
+        Categorie categorie = (Categorie) entity;
         return CategorieResponseDto.builder()
                 .id(categorie.getId())
                 .nom(categorie.getNom())
                 .description(categorie.getDescription())
                 .build();
     }
-        public List<CategorieResponseDto> getAllCategories() {
-        List<Categorie>categories = categorieRepository.findAll();
-            return categories.stream()
-                    .map(this::toDto)
-                    .toList();
-        }
-    public CategorieResponseDto createCategorie(CategorieRequestDto categorieRequest) {
+  @Override
+    public ResponseDto create(RequestDto request) {
+        CategorieRequestDto categorieRequest = (CategorieRequestDto) request;
         Categorie categorieSauvegardee = categorieRepository.save(toEntity(categorieRequest));
         return toDto(categorieSauvegardee);
     }
-    public CategorieResponseDto getCategorieById(Long id) {
+
+    @Override
+    public ResponseDto update(Long id, RequestDto requestDto) {
+        CategorieRequestDto categorieRequest = (CategorieRequestDto) requestDto;
         Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
-        return toDto(categorie);
-    }
-    public CategorieResponseDto deleteCategorieById(Long id) {
-        if(!categorieRepository.existsById(id)){
-            throw new RuntimeException("Categorie non trouvée");
-        } else {
-            Optional<Categorie> categorie = categorieRepository.findById(id);
-            categorieRepository.deleteById(id);
-            return toDto(categorie.get());
-        }
-    }
-    public CategorieResponseDto updateCategorieById(Long id, CategorieRequestDto categorieRequest) {
-        Categorie categorie = categorieRepository.findById(id).orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
-        categorie.setNom(categorieRequest.getNom());
-        categorie.setDescription(categorieRequest.getDescription());
+            categorie.setNom(categorieRequest.getNom());
+            categorie.setDescription(categorieRequest.getDescription());
         categorieRepository.save(categorie);
         return toDto(categorie);
     }

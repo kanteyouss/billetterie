@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 @Setter
 @Getter
-public class SalleRequestDto {
+public class SalleRequestDto implements RequestDto{
     private String nom;
     private String ville;
     private int capacite;

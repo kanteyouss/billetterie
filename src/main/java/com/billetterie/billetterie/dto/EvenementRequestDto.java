@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Builder
-public class EvenementRequestDto {
+public class EvenementRequestDto implements RequestDto{
     private Long id;
     private String titre;
     private String description;
