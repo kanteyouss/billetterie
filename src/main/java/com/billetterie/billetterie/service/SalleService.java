@@ -1,10 +1,14 @@
 package com.billetterie.billetterie.service;
 
+import com.billetterie.billetterie.dto.RequestDto;
+import com.billetterie.billetterie.dto.ResponseDto;
 import com.billetterie.billetterie.dto.SalleRequestDto;
 import com.billetterie.billetterie.dto.SalleResponseDto;
 import com.billetterie.billetterie.entity.Salle;
 import com.billetterie.billetterie.repository.SalleRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Request;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +17,12 @@ import java.util.List;
  * Représente la salle de evenement
  */
 @Service
-@RequiredArgsConstructor
-public class SalleService {
+public class SalleService extends AbstractCrudService {
     private final SalleRepository salleRepository;
-
+    public SalleService(SalleRepository salleRepository) {
+        super(salleRepository);
+        this.salleRepository = salleRepository;
+    }
     public Salle toEntity(SalleRequestDto salleRequest) {
         return Salle.builder()
                 .capacite(salleRequest.getCapacite())
@@ -25,7 +31,9 @@ public class SalleService {
                 .adresse(salleRequest.getAdresse())
                 .build();
     }
-    public SalleResponseDto toDto(Salle salle) {
+    @Override
+    public ResponseDto toDto(Object entity) {
+        Salle salle = (Salle) entity;
         return SalleResponseDto.builder()
                 .id(salle.getId())
                 .nom(salle.getNom())
@@ -34,24 +42,16 @@ public class SalleService {
                 .adresse(salle.getAdresse())
                 .build();
     }
-    public List<SalleResponseDto> getAllSalle() {
-        return salleRepository.findAll().stream()
-                .map(salle -> toDto(salle))
-                .toList();
-    }
-
-    public SalleResponseDto createSalle(SalleRequestDto salleRequest) {
+    @Override
+    public ResponseDto create(RequestDto requestDto) {
+        SalleRequestDto salleRequest = (SalleRequestDto)  requestDto;
         Salle salle = salleRepository.save(toEntity(salleRequest));
         return toDto(salle);
     }
-
-    public SalleResponseDto getSalleById(Long id) {
+    @Override
+    public ResponseDto update(Long id, RequestDto requestDto) {
+        SalleRequestDto salleRequest = (SalleRequestDto)  requestDto;
         Salle salle = salleRepository.findById(id).orElseThrow(() -> new RuntimeException("Salle non trouvée"));
-        return toDto(salle);
-    }
-
-    public SalleResponseDto updatesalle(Long id, SalleRequestDto salleRequest) {
-            Salle salle = salleRepository.findById(id).orElseThrow(() -> new RuntimeException("Salle non trouvée"));
             salle.setNom(salleRequest.getNom());
             salle.setVille(salleRequest.getVille());
             salle.setCapacite(salleRequest.getCapacite());
@@ -60,9 +60,5 @@ public class SalleService {
             return toDto(salle);
     }
 
-    public SalleResponseDto deleteSalle(Long id) {
-            Salle salle = salleRepository.findById(id).orElseThrow(() -> new RuntimeException("Salle non trouvée"));
-            salleRepository.deleteById(id);
-            return toDto(salle);
-    }
+
 }
