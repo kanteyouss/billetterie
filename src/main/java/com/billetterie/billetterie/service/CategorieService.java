@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 @Service
-public class CategorieService extends AbstractCrudService implements CrudService {
+public class CategorieService extends AbstractCrudService {
 
     private JpaRepository jpaRepository;
     private CategorieResponseDto categorieResponse;
