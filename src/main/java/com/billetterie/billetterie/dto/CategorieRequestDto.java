@@ -5,7 +5,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class CategorieRequestDto {
+public class CategorieRequestDto implements RequestDto {
     private String nom;
     private String description;
 }

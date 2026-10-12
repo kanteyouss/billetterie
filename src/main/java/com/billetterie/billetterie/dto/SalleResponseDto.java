@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @JsonPropertyOrder({"id","nom", "ville", "capacite", "adresse"})
-public class SalleResponseDto {
+public class SalleResponseDto implements ResponseDto{
     private Long id;
     private String nom;
     private String ville;

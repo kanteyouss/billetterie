@@ -2,6 +2,7 @@ package com.billetterie.billetterie.controller;
 
 import com.billetterie.billetterie.dto.EvenementRequestDto;
 import com.billetterie.billetterie.dto.EvenementResponseDto;
+import com.billetterie.billetterie.dto.ResponseDto;
 import com.billetterie.billetterie.service.EvenementService;
 import com.billetterie.billetterie.utils.response.Response;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,9 @@ public class EvenementController {
      * @return l'événement créé
      */
     @PostMapping
-    public EvenementResponseDto createEvenement(
+    public ResponseDto create(
             @RequestBody EvenementRequestDto evenementRequest) {
-
-        return evenementService.createEvenement(evenementRequest);
+        return evenementService.create(evenementRequest);
     }
     /**
      * Récupère un événement à partir de son identifiant.
@@ -38,8 +38,8 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement récupéré.
      */
     @GetMapping("/{id}")
-    public EvenementResponseDto getEvenementById(@PathVariable Long id) {
-        return evenementService.getEvenementById(id);
+    public ResponseDto getById(@PathVariable Long id) throws Throwable {
+        return evenementService.getById(id);
     }
 
     /**
@@ -48,8 +48,8 @@ public class EvenementController {
      * @return List<EvenementResponseDto> La liste des événements.
      */
     @GetMapping
-    public List<EvenementResponseDto> getAllEvenements() {
-        return evenementService.getAllEvenements();
+    public List<ResponseDto> getAll() {
+        return evenementService.getAll();
     }
 
     /**
@@ -60,8 +60,8 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement modifié.
      */
     @PutMapping("/{id}")
-    public EvenementResponseDto updateEvenementById(@PathVariable Long id, @RequestBody EvenementRequestDto evenementRequest) {
-        return evenementService.updateEvenementById(id, evenementRequest);
+    public ResponseDto update(@PathVariable Long id, @RequestBody EvenementRequestDto evenementRequest) {
+        return evenementService.update(id, evenementRequest);
     }
 
     /**
@@ -71,7 +71,7 @@ public class EvenementController {
      * @return EvenementResponseDto Les détails de l'événement supprimé.
      */
     @DeleteMapping("/{id}")
-    public EvenementResponseDto deleteEvenementById(@PathVariable Long id) {
-        return evenementService.deleteEvenementById(id);
+    public ResponseDto delete(@PathVariable Long id) throws Throwable {
+        return evenementService.delete(id);
     }
 }

@@ -1,27 +1,48 @@
 package com.billetterie.billetterie.service;
 
+import com.billetterie.billetterie.dto.*;
 import com.billetterie.billetterie.entity.Categorie;
 import com.billetterie.billetterie.entity.Place;
-import com.billetterie.billetterie.repository.CategorieRepository;
-import com.billetterie.billetterie.dto.CategorieResponseDto;
-import com.billetterie.billetterie.dto.PlaceRequestDto;
-import com.billetterie.billetterie.dto.PlaceResponseDto;
-import com.billetterie.billetterie.repository.PlaceRepository;
 import com.billetterie.billetterie.entity.Salle;
+import com.billetterie.billetterie.repository.CategorieRepository;
+import com.billetterie.billetterie.repository.PlaceRepository;
 import com.billetterie.billetterie.repository.SalleRepository;
-import com.billetterie.billetterie.dto.SalleResponseDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service de gestion des places.
+ */
 @Service
-@RequiredArgsConstructor
-public class PlaceService {
+public class PlaceService extends AbstractCrudService {
+
     private final PlaceRepository placeRepository;
     private final SalleRepository salleRepository;
     private final CategorieRepository categorieRepository;
 
+    /**
+     * Construit le service avec ses dépendances.
+     *
+     * @param placeRepository     le repository des places
+     * @param salleRepository     le repository des salles
+     * @param categorieRepository le repository des catégories
+     */
+    public PlaceService(PlaceRepository placeRepository, SalleRepository salleRepository, CategorieRepository categorieRepository) {
+        super(placeRepository);
+        this.placeRepository = placeRepository;
+        this.salleRepository = salleRepository;
+        this.categorieRepository = categorieRepository;
+    }
+
+    /**
+     * Convertit une requête en entité Place.
+     *
+     * @param placeRequest les données de la requête
+     * @param salle        la salle associée
+     * @param categorie    la catégorie associée
+     * @return l'entité Place construite
+     */
     public Place toEntity(PlaceRequestDto placeRequest, Salle salle, Categorie categorie) {
         return Place.builder()
                 .numero(placeRequest.getNumero())
@@ -30,7 +51,16 @@ public class PlaceService {
                 .categorie(categorie)
                 .build();
     }
-    private PlaceResponseDto toDto(Place place) {
+
+    /**
+     * Convertit une entité Place en DTO de réponse.
+     *
+     * @param entity l'entité à convertir
+     * @return le DTO de réponse
+     */
+    @Override
+    public PlaceResponseDto toDto(Object entity) {
+        Place place = (Place) entity;
         return PlaceResponseDto.builder()
                 .id(place.getId())
                 .numero(place.getNumero())
@@ -44,29 +74,21 @@ public class PlaceService {
                         .build())
                 .categorie(CategorieResponseDto.builder()
                         .id(place.getCategorie().getId())
-                        .nom(place.getCategorie().getNom())
+                        .nom(place.getCategorie().getLibelle())
                         .description(place.getCategorie().getDescription())
                         .build())
                 .build();
     }
-    public List<PlaceResponseDto> getAllPlaces() {
-        List <Place> places = placeRepository.findAll();
-        if(places.isEmpty()){
-            throw new RuntimeException("Auncune place n'a été trouvée");
-        }
-        return places.stream()
-                .map(this::toDto)
-                .toList();
-    }
 
-    public PlaceResponseDto getPlaceById(Long id) {
-        Place place = placeRepository.findById(id).orElseThrow(() -> {
-            return new RuntimeException("Place non trouvée");
-        });
-        return toDto(place);
-    }
-
-    public PlaceResponseDto create(PlaceRequestDto placeRequest) {
+    /**
+     * Crée une nouvelle place.
+     *
+     * @param requestDto les données de la requête
+     * @return le DTO de la place créée
+     */
+    @Override
+    public PlaceResponseDto create(RequestDto requestDto) {
+        PlaceRequestDto placeRequest = (PlaceRequestDto) requestDto;
         Salle salle = salleRepository.findById(placeRequest.getSalleId())
                 .orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
         Categorie categorie = categorieRepository.findById(placeRequest.getCategorieId())
@@ -75,7 +97,16 @@ public class PlaceService {
         return toDto(placeRepository.save(place));
     }
 
-    public PlaceResponseDto updatePlace(Long id, PlaceRequestDto placeRequest) {
+    /**
+     * Modifie une place existante.
+     *
+     * @param id         l'identifiant de la place à modifier
+     * @param requestDto les données de la requête
+     * @return le DTO de la place modifiée
+     */
+    @Override
+    public PlaceResponseDto update(Long id, RequestDto requestDto) {
+        PlaceRequestDto placeRequest = (PlaceRequestDto) requestDto;
         Salle salle = salleRepository.findById(placeRequest.getSalleId())
                 .orElseThrow(() -> new RuntimeException("Salle non trouvée"));
         Categorie categorie = categorieRepository.findById(placeRequest.getCategorieId())
@@ -86,13 +117,5 @@ public class PlaceService {
         place.setSalle(salle);
         place.setCategorie(categorie);
         return toDto(placeRepository.save(place));
-
-    }
-
-    public PlaceResponseDto deletePlaceByIdd(Long id) {
-        Place place = placeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Place non trouvée"));
-        placeRepository.deleteById(id);
-        return toDto(place);
     }
 }
